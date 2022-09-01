@@ -23,8 +23,6 @@ const connect = function () {
     console.log(data)
   });
   
-
-
 conn.on('connect',()=>{ 
   conn.write('Move: up')}),
   setInterval(() => {conn.write('Move: up') }, 300)
@@ -34,4 +32,4 @@ conn.on('connect',()=>{
 };
 
 
-module.exports = {net,connect}
+module.exports = connect
