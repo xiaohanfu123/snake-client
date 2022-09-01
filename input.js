@@ -1,45 +1,46 @@
 const connect = require("./client");
 const net = require("net");
 
-
-const setupInput = function () {
+let connection;
+const setupInput = function (conn) {
+  
+    connection = conn;
+  
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
   stdin.resume();
-
-  stdin.on("data", (data)=>{handleUserInput(data)})
+  
   stdin.on('data',(data)=>{printInput(data)});           
-  return stdin;
-};
-
-const printInput = function (key) {
-  // if (userInput === 'w') {
-  //   console.log('User pressed W key')
-switch (key) {
-  case 'w':
-  console.log(`user pressed ${key}`)
-  break;
-  case 's':
-  console.log(`user pressed ${key}`)
-  break;
-  case 'a':
-  console.log(`user pressed ${key}`)  
-  break;
-  case 'd':
-  console.log(`user pressed ${key}`)
-  break;
-}
-  }
-
-
-const handleUserInput = function (key) {
-  if (key === '\u0003') {
+  
+  const printInput = function (key) {
+    // if (userInput === 'w') {
+    //   console.log('User pressed W key')
+  switch (key) {
+    case 'w':
+    conn.write(`Move: up`)
+    // setInterval(() => {conn.write('Move: up') }, 500)
+    break;
+    case 's':
+    conn.write(`Move: down`)
+    // setInterval(() => {conn.write('Move: down') }, 500)
+    break;
+    case 'a':
+    conn.write(`Move: left`) 
+    // setInterval(() => {conn.write('Move: left') }, 500)
+    break;
+    case 'd':
+    conn.write(`Move: right`)
+    // setInterval(() => {conn.write('Move: right') }, 500)
+    break;
+    case '\u0003':
     process.exit();
+    // setInterval(() => {conn.write('Move: right') }, 500)
+    break;
   }
-
-
-
+    }
+    return stdin;
 };
+
 
 module.exports = setupInput;
